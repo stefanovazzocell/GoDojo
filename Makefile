@@ -3,4 +3,4 @@ bench:
 	@echo "Running tests..."
 	go test -run=Test. -race ./bench
 	@echo "Running benchmarks..."
-	go test -run=Bench -bench=. ./bench
+	go test -run=Bench -bench=. -benchmem ./bench
