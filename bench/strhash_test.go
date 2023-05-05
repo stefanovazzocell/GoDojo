@@ -1,6 +1,7 @@
 package bench
 
 import (
+	"hash/fnv"
 	"testing"
 	"unsafe"
 )
@@ -13,6 +14,15 @@ func BenchmarkStrHash(b *testing.B) {
 	str := "Hello World"
 	for i := 0; i < b.N; i++ {
 		_ = strhash(unsafe.Pointer(&str), 0)
+	}
+}
+
+func BenchmarkHashFnv(b *testing.B) {
+	str := "Hello World"
+	for i := 0; i < b.N; i++ {
+		h := fnv.New32a()
+		h.Write([]byte(str))
+		h.Sum32()
 	}
 }
 
