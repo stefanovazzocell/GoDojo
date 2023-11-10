@@ -73,7 +73,7 @@ func BenchmarkControlFlowComplex(b *testing.B) {
 	})
 	b.Run("if", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			x = i % 2
+			x = i % 11
 			if x == 0 {
 				continue
 			}
@@ -109,7 +109,7 @@ func BenchmarkControlFlowComplex(b *testing.B) {
 	})
 	b.Run("ifElse", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			x = i % 2
+			x = i % 11
 			if x == 0 {
 				continue
 			} else if x == 1 {

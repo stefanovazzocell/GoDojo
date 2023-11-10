@@ -39,6 +39,5 @@ func TestStrHash(t *testing.T) {
 	if hA0 == hB0 {
 		t.Fatalf("hA0 == hB0 [%d == %d]", hA0, hB0)
 	}
-	t.Logf("%d, %d, %d", hA0, hA1, hB0)
-	t.FailNow()
+	// t.Logf("%d, %d, %d", hA0, hA1, hB0)
 }
