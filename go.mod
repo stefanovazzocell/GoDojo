@@ -1,8 +1,8 @@
 module github.com/stefanovazzocell/GoDojo
 
-go 1.21
+go 1.23
 
-toolchain go1.22.0
+toolchain go1.23.0
 
 require github.com/tmc/langchaingo v0.1.5
 
