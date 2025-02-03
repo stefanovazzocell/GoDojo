@@ -11,9 +11,25 @@ func BenchmarkSliceLoopValue(b *testing.B) {
 			}
 		}
 	})
+	b.Run("rangeKeyReuse", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			var k int
+			for k = range testSlice {
+				_ = testSlice[k]
+			}
+		}
+	})
 	b.Run("rangeVal", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			for _, v := range testSlice {
+				_ = v
+			}
+		}
+	})
+	b.Run("rangeValReuse", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			var v string
+			for _, v = range testSlice {
 				_ = v
 			}
 		}
@@ -40,6 +56,21 @@ func BenchmarkSliceLoopValue(b *testing.B) {
 			}
 		}
 	})
+	b.Run("lenRange", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			for i := range len(testSlice) {
+				_ = testSlice[i]
+			}
+		}
+	})
+	b.Run("lenRangeReuse", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			var i int
+			for i = range len(testSlice) {
+				_ = testSlice[i]
+			}
+		}
+	})
 }
 
 func BenchmarkSliceLoopCount(b *testing.B) {
@@ -54,10 +85,30 @@ func BenchmarkSliceLoopCount(b *testing.B) {
 			}
 		}
 	})
+	b.Run("rangeKeyReuse", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			count = 0
+			var k int
+			for k = range testSlice {
+				_ = k
+				count++
+			}
+		}
+	})
 	b.Run("rangeVal", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			count = 0
-			for v := range testSlice {
+			for _, v := range testSlice {
+				_ = v
+				count++
+			}
+		}
+	})
+	b.Run("rangeValReuse", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			count = 0
+			var v string
+			for _, v = range testSlice {
 				_ = v
 				count++
 			}
@@ -92,6 +143,14 @@ func BenchmarkSliceLoopCount(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			count = 0
 			for j := len(testSlice) - 1; j >= 0; j-- {
+				count++
+			}
+		}
+	})
+	b.Run("lenRange", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			count = 0
+			for range len(testSlice) {
 				count++
 			}
 		}
